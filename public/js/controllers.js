@@ -2,108 +2,60 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['myApp.services']).
+angular.module('myApp.controllers', ['myApp.services', 'myApp.pin', 'myApp.compass']).
 
-controller('DashboardCtrl', function ($scope, $interval, $window, widgetDefinitions, defaultWidgets, socket) {
+controller('DashboardCtrl', function ($scope, $interval, $window, socket, pinWidgetDef, compassWidgetDef) {
 
-  $scope.dashboardOptions = {
-    widgetButtons: true,
-    widgetDefinitions: widgetDefinitions,
-    defaultWidgets: defaultWidgets,
-    storage: $window.localStorage,
-    storageId: 'demo'
-  };
-
-  $scope.gval = 25;
-  socket.on('send:gval', function (data) {
-    console.log(data);
-    $scope.gval = data.gval;
-  });
-
-  $scope.randomValue = Math.random();
-  $interval(function () {
-    $scope.randomValue = Math.random();
-  }, 500);
-}).
-
-controller('ExplicitSaveDemoCtrl', function ($scope, $interval, $window, widgetDefinitions, defaultWidgets) {
-
-  $scope.dashboardOptions = {
-    widgetButtons: true,
-    widgetDefinitions: widgetDefinitions,
-    defaultWidgets: defaultWidgets,
-    storage: $window.localStorage,
-    storageId: 'explicitSave',
-    explicitSave: true
-  };
-  $scope.randomValue = Math.random();
-  $interval(function () {
-    $scope.randomValue = Math.random();
-  }, 500);
-}).
-
-controller('LayoutsDemoCtrl', function ($scope, widgetDefinitions, defaultWidgets, LayoutStorage, $interval) {
-  $scope.layoutOptions = {
-    storageId: 'demo-layouts',
-    storage: localStorage,
-    storageHash: 'fs4df4d51',
-    widgetDefinitions: widgetDefinitions,
-    defaultWidgets: defaultWidgets,
-    defaultLayouts: [
-      {
-        title: 'Layout 1',
-        active: true,
-        defaultWidgets: defaultWidgets
-        },
-      {
-        title: 'Layout 2',
-        active: false,
-        defaultWidgets: defaultWidgets
-        },
-      {
-        title: 'Layout 3',
-        active: false,
-        defaultWidgets: defaultWidgets
+    var widgetDefinitions = [
+    {
+        name: 'random',
+        directive: 'wt-scope-watch',
+        attrs: {
+            value: 'randomValue'
         }
-      ]
-  };
-  $scope.randomValue = Math.random();
-  $interval(function () {
-    $scope.randomValue = Math.random();
-  }, 500);
-
-}).
-
-controller('LayoutsDemoExplicitSaveCtrl', function ($scope, widgetDefinitions, defaultWidgets, LayoutStorage, $interval) {
-
-  $scope.layoutOptions = {
-    storageId: 'demo-layouts',
-    storage: localStorage,
-    storageHash: 'fs4df4d51',
-    widgetDefinitions: widgetDefinitions,
-    defaultWidgets: defaultWidgets,
-    explicitSave: true,
-    defaultLayouts: [
-      {
-        title: 'Layout 1',
-        active: true,
-        defaultWidgets: defaultWidgets
+    },  
+    {
+        name: 'time',
+        directive: 'wt-time'
+    },
+    pinWidgetDef,
+    compassWidgetDef, 
+    {
+        name: 'gauge',
+        directive: 'wt-gauge',
+        attrs: {
+            gval: 50
         },
-      {
-        title: 'Layout 2',
-        active: false,
-        defaultWidgets: defaultWidgets
-        },
-      {
-        title: 'Layout 3',
-        active: false,
-        defaultWidgets: defaultWidgets
+        style: {
+            width: '250px'
         }
-      ]
-  };
-  $scope.randomValue = Math.random();
-  $interval(function () {
-    $scope.randomValue = Math.random();
-  }, 500);
+    }];
+    var defaultWidgets = [
+        {
+            name: 'compassWidget'
+        },
+        {
+            name: 'pinWidget'
+    }];
 
+    
+    $scope.dashboardOptions = {
+        widgetButtons: true,
+        widgetDefinitions: widgetDefinitions,
+        defaultWidgets: defaultWidgets,
+//        storage: $window.localStorage,
+//        storageId: 'demo'
+    };
+
+    $scope.gval = 25;
+    socket.on('send:gval', function (data) {
+        console.log(data);
+        $scope.gval = data.gval;
+    });
+
+    $scope.randomValue = Math.random();
+    $interval(function () {
+        $scope.randomValue = Math.random();
+    }, 500);
 });
+

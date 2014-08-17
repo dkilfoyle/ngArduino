@@ -3,77 +3,65 @@
 angular.module('myApp.services', ['btford.socket-io']).
 
 factory('socket', function (socketFactory) {
-  return socketFactory();
-}).
+    return socketFactory();
+})
 
-factory('widgetDefinitions', function (RandomDataModel) {
-  return [{
-    name: 'random',
-    directive: 'wt-scope-watch',
-    attrs: {
-      value: 'randomValue'
-    }
-  }, {
-    name: 'time',
-    directive: 'wt-time'
-  }, {
-    name: 'datamodel',
-    directive: 'wt-scope-watch',
-    dataAttrName: 'value',
-    dataModelType: RandomDataModel
-  }, {
-    name: 'gauge',
-    directive: 'wt-gauge',
-    attrs: {
-      gval: 50
-    },
-    style: {
-      width: '250px'
-    }
-  }];
-}).
+.value('pinWidgetCount', { count: 0})
 
-value('defaultWidgets', [
-  {
-    name: 'random'
-    },
-  {
-    name: 'time'
-    },
-  {
-    name: 'datamodel'
-    },
-  {
-    name: 'random',
-    style: {
-      width: '50%'
-    }
-    },
-  {
-    name: 'time',
-    style: {
-      width: '50%'
-    }
-    }
-  ]).
+//factory('widgetDefinitions', function (PinDataModel) {
+//    return [{
+//        name: 'random',
+//        directive: 'wt-scope-watch',
+//        attrs: {
+//            value: 'randomValue'
+//        }
+//  }, {
+//        name: 'time',
+//        directive: 'wt-time'
+//  }, {
+//        name: 'datamodel',
+//        directive: 'dk-pin-watch',
+//        dataAttrName: 'value',
+//        dataModelType: PinDataModel,
+//        dataModelArgs: {
+//            limit: 1000
+//        },
+//        settingsModalOptions: {
+//            templateUrl: 'templates/pinWidgetSettingsTemplate.html'
+//        }
+//  }, {
+//        name: 'gauge',
+//        directive: 'wt-gauge',
+//        attrs: {
+//            gval: 50
+//        },
+//        style: {
+//            width: '250px'
+//        }
+//  }];
+//}).
 
-factory('RandomDataModel', function ($interval, WidgetDataModel) {
-  function RandomDataModel() {}
+//value('defaultWidgets', [
+//    {
+//        name: 'random'
+//    },
+//    {
+//        name: 'time'
+//    },
+//    {
+//        name: 'datamodel'
+//    },
+//    {
+//        name: 'random',
+//        style: {
+//            width: '50%'
+//        }
+//    },
+//    {
+//        name: 'time',
+//        style: {
+//            width: '50%'
+//        }
+//    }
+//  ]);
 
-  RandomDataModel.prototype = Object.create(WidgetDataModel.prototype);
-
-  RandomDataModel.prototype.init = function () {
-    this.updateScope('-');
-    this.intervalPromise = $interval(function () {
-      var value = Math.floor(Math.random() * 100);
-      this.updateScope(value);
-    }.bind(this), 500);
-  };
-
-  RandomDataModel.prototype.destroy = function () {
-    WidgetDataModel.prototype.destroy.call(this);
-    $interval.cancel(this.intervalPromise);
-  };
-
-  return RandomDataModel;
-});

@@ -7,3 +7,7 @@ a {
 .layout-tabs {
     margin-bottom: 10px;
 }
+
+.widget {
+    border: 2px solid #D1D1D1;
+}
