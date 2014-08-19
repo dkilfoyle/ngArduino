@@ -2,7 +2,7 @@
 
 angular.module('myApp.compass', ['myApp.services'])
 
-.factory('compassWidgetDef', function (PinDataModel) {
+.factory('compassWidgetDef', function () {
     return {
         name: 'compassWidget',
         directive: 'dk-compass',

@@ -2,24 +2,14 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['myApp.services', 'myApp.pin', 'myApp.compass']).
+angular.module('myApp.controllers', ['myApp.services', 'myApp.pin', 'myApp.compass', 'myApp.arduino']).
 
-controller('DashboardCtrl', function ($scope, $interval, $window, socket, pinWidgetDef, compassWidgetDef) {
+controller('DashboardCtrl', function ($scope, $window, pinWidgetDef, compassWidgetDef, arduinoWidgetDef) {
 
     var widgetDefinitions = [
-    {
-        name: 'random',
-        directive: 'wt-scope-watch',
-        attrs: {
-            value: 'randomValue'
-        }
-    },  
-    {
-        name: 'time',
-        directive: 'wt-time'
-    },
     pinWidgetDef,
     compassWidgetDef, 
+    arduinoWidgetDef,
     {
         name: 'gauge',
         directive: 'wt-gauge',
@@ -43,19 +33,19 @@ controller('DashboardCtrl', function ($scope, $interval, $window, socket, pinWid
         widgetButtons: true,
         widgetDefinitions: widgetDefinitions,
         defaultWidgets: defaultWidgets,
-//        storage: $window.localStorage,
-//        storageId: 'demo'
+        storage: $window.localStorage,
+        storageId: 'demo'
     };
 
-    $scope.gval = 25;
-    socket.on('send:gval', function (data) {
-        console.log(data);
-        $scope.gval = data.gval;
-    });
-
-    $scope.randomValue = Math.random();
-    $interval(function () {
-        $scope.randomValue = Math.random();
-    }, 500);
+//    $scope.gval = 25;
+//    socket.on('send:gval', function (data) {
+//        console.log(data);
+//        $scope.gval = data.gval;
+//    });
+//
+//    $scope.randomValue = Math.random();
+//    $interval(function () {
+//        $scope.randomValue = Math.random();
+//    }, 500);
 });
 
