@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.pin', ['myApp.services'])
+angular.module('myApp.pin', ['myApp.services','smoothie-directive'])
 
 .factory('pinWidgetDef', function (PinDataModel) {
     return {
@@ -23,7 +23,7 @@ angular.module('myApp.pin', ['myApp.services'])
     return {
         restrict: 'A',
         replace: true,
-        template: '<div>Value<div class="alert alert-info">Pin: {{mypin.pin}} Value: {{mypin.value}}</div></div>',
+        template: '<div>Value<div class="alert alert-info">Pin: {{mypin.pin}} Value: {{mypin.value}}</div>      <smoothie-grid width="600">        <time-series callback="foo()" color="blue" rate="100"></time-series>        <time-series callback="foo()" color="#4b8e4b" fill="rgba(108, 255, 0, 0.34)" width="0" rate="200"></time-series>      </smoothie-grid></div>',
         controller: 'PinCtrl',
         scope: {
             mypin: '=mypin',
@@ -35,6 +35,14 @@ angular.module('myApp.pin', ['myApp.services'])
     //    pinWidgetCount.count = pinWidgetCount.count+1;
     //    $scope.ctrlpin = pinWidgetCount.count;
     //    $scope.ctrlval = 0;
+    
+            $scope.foo = function() {
+            return [new Date().getTime(), Math.random()*0.2];
+        };
+        
+        $scope.goo = function() {
+            return [new Date().getTime(), Math.random() * 30.0];
+        };
     //    
         socket.on('send:sensor', function (data) {
             if (data.sensorID == $scope.mypin.pin)
