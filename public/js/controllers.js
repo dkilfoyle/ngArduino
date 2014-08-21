@@ -2,14 +2,15 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['myApp.services', 'myApp.pin', 'myApp.compass', 'myApp.arduino']).
+angular.module('myApp.controllers', ['myApp.services', 'myApp.pin', 'myApp.compass', 'myApp.arduino', 'myApp.led']).
 
-controller('DashboardCtrl', function ($scope, $window, pinWidgetDef, compassWidgetDef, arduinoWidgetDef) {
+controller('DashboardCtrl', function ($scope, $window, pinWidgetDef, compassWidgetDef, arduinoWidgetDef, ledWidgetDef) {
 
     var widgetDefinitions = [
     pinWidgetDef,
     compassWidgetDef, 
     arduinoWidgetDef,
+    ledWidgetDef,
     {
         name: 'gauge',
         directive: 'wt-gauge',

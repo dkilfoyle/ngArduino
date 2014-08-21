@@ -20,9 +20,13 @@ angular.module('myApp.arduino', ['myApp.services'])
 .controller('ArduinoCtrl', function ($scope, socket) {
     $scope.myport="none";
     $scope.myports=[];
+    $scope.board = {type: ""};
     socket.emit("reqComPorts");
     $scope.connecttext = "Connect";
-    $scope.connectclass = "btn btn-danger";
+    $scope.connectclass = "btn btn-success";
+    
+    console.log("ArduinoCtrl reqArduinoConnect");
+    socket.emit("reqArduinoAlready");
     
     $scope.connect = function() {
         socket.emit("reqArduinoConnect", {port: $scope.myport});
@@ -33,9 +37,11 @@ angular.module('myApp.arduino', ['myApp.services'])
         $scope.myport = data.ports[0];
     })
     
-    socket.on('resArduinoReady', function() {
-        $scope.connecttext = "Connected";
-        $scope.connectclass = "btn btn-success";
+    socket.on('resArduinoReady', function(board) {
+        $scope.connecttext = "Disconnect";
+        $scope.connectclass = "btn btn-danger";
+        $scope.board.type = board.type;
+        $scope.myport = board.port;
     })
 });
 

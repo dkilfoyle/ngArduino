@@ -1,15 +1,19 @@
 <div>
-  <form class="form-horizontal">
-        
-      <!-- Select Basic -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="cmbPin">Port</label>
-        <div class="col-md-4">
-          <select name="cmbPin" class="form-control" ng-model="myport" ng-options="port for port in myports">
-          </select>
-        </div>
-        <button id="arduinoConnect" type="button" ng-class="connectclass" ng-click="connect()">{{connecttext}}</button>
-      </div>
+    <form class="form-horizontal">
 
-  </form>
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="cmbPin">Port</label>
+            <div class="col-md-4">
+                <select name="cmbPin" class="form-control" ng-model="myport" ng-options="port for port in myports">
+                </select>
+            </div>
+            <button id="arduinoConnect" type="button" ng-class="connectclass" ng-click="connect()">{{connecttext}}
+            </button>
+
+        </div>
+
+    </form>
+
+    <div class="alert alert-info" ng-show="board.type">{{board.type}} connected on {{myport}}</div>
 </div>

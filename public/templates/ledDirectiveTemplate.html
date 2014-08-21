@@ -1,0 +1,74 @@
+<form class="form-horizontal">
+    <fieldset>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="pin">Pin</label>
+            <div class="col-md-4">
+                <select id="pin" name="pin" class="form-control" ng-model="mypin">
+                    <option value="2">2</option>
+                    <option value="3">3 (PWM)</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (PWM)</option>
+                    <option value="6">6 (PWM)</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9 (PWM)</option>
+                    <option value="10">10 (PWM)</option>
+                    <option value="11">11 (PWM)</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="onoffbutton">Toggle</label>
+            <div class="col-md-4">
+                <button id="onoffbutton" name="onoffbutton" class="btn" ng-class="{On: 'btn-success', Off: 'btn-danger'}[toggletext]" ng-click="onoffbutton()">{{toggletext}}</button>
+            </div>
+        </div>
+
+        <!-- Multiple Radios -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="type">Type</label>
+            <div class="col-md-4">
+                <div class="radio">
+                    <label for="type-0">
+                        <input type="radio" name="type" id="type-0" value="Constant" checked="checked" ng-model="type">Constant
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="type-1">
+                        <input type="radio" name="type" id="type-1" value="Blink" ng-model="type">Blink
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="type-2">
+                        <input type="radio" name="type" id="type-2" value="Pulse" ng-model="type">Pulse
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="blink" >Blink</label>
+            <div class="col-md-4">
+                <input id="blink" name="blink" type="text" placeholder="ms" class="form-control input-md" ng-model="blink">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="brightness" >Brightness</label>
+            <div class="col-md-4">
+                <input id="brightness" name="brightness" type="text" placeholder="0-255" class="form-control input-md" ng-model="brightness">
+
+            </div>
+        </div>
+
+    </fieldset>
+</form>
