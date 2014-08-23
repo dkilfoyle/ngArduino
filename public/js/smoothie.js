@@ -12,13 +12,17 @@ angular.module('smoothie-directive', [])
                 background: '@',
                 lineColor:  '@',
                 lineWidth:  '@',
-                labelColor: '@'
+                labelColor: '@',
+                maxValue: '@',
+                minValue: '@'
             },
 
             controller: function($scope, $element) {
                 this.canvas = $element[0];
 
                 this.smoothie = new SmoothieChart({
+                    maxValue: $scope.maxValue || 1000,
+                    minValue: $scope.minValue || 0,
                     grid: { 
                         strokeStyle: $scope.lineColor || 'transparent', 
                         fillStyle: $scope.background || 'transparent'

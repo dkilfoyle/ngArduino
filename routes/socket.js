@@ -4,9 +4,9 @@
 'use strict';
 
 var five = require('johnny-five'),
-    board;
+    board, sensor, ping;
 var sp = require('serialport');
-var myled;
+var myleds = {};
 var isConnected = false;
 
 module.exports = function (socket) {
@@ -68,6 +68,7 @@ module.exports = function (socket) {
 
     socket.on("sensorAdd", function (val) {
         if (board != undefined) {
+            console.log("sensorAdd" + val.pin);
             sensor = new five.Sensor({
                 pin: val.pin,
                 freq: val.freq
@@ -75,41 +76,63 @@ module.exports = function (socket) {
             sensor.myname = val.name;
 
             sensor.on("data", function (err, value) {
-                board.emit('sensorReading', {
+                //console.log(value);
+                socket.emit('sensorReading', {
                     value: this.value,
-                    name: this.myname
+                    name: this.myname,
+                    pin: this.pin
                 });
-            });
-
-            board.on('sensorReading', function (val) {
-                socket.emit('sensorReading', val);
             });
         }
     });
 
     socket.on("reqLed", function (led) {
         if (board != undefined) {
-            myled = new five.Led({
-                pin: led.pin
-            });
-            console.log(myled);
-            if (led.toggle == "On")
-                myled.on()
+            var myled;
+            if (led.pin in myleds) {
+                myled = myleds[led.pin];
+                console.log("retrieving " + myled.pin);
+            }
             else
-                myled.off();
+            {
+                myled = new five.Led({
+                    pin: led.pin
+                });
+                myleds[led.pin]=myled;
+                console.log("created new " + myled);
+            }
+
+            // myled.brightness(led.brightness);
+            
+            console.log(led)
+
+            if (led.type == "Blink")
+                myled.blink(led.blink);
+
+            if (led.type == "Pulse")
+                myled.pulse(led.blink)
+                
+            if (led.type == "Constant")
+                myled.stop();
+            
+            if (led.toggle == "On")
+                myled.on();
+            else
+                myled.stop().off();
+
         }
     });
 
-    var x = 0;
-    setInterval(function () {
-        socket.emit('send:sensor', {
-            sensorID: 1,
-            sensorVal: x
-        });
-
-        socket.emit('send:compass', {
-            heading: (x * 5) % 360
-        })
-        x = x + 1;
-    }, 3000);
+//    var x = 0;
+//    setInterval(function () {
+//        socket.emit('send:sensor', {
+//            sensorID: 1,
+//            sensorVal: x
+//        });
+//
+//        socket.emit('send:compass', {
+//            heading: (x * 5) % 360
+//        })
+//        x = x + 1;
+//    }, 3000);
 };

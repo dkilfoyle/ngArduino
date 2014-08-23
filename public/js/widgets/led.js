@@ -4,7 +4,7 @@ angular.module('myApp.led', ['myApp.services'])
 
 .factory('ledWidgetDef', function () {
     return {
-        name: 'ledWidget',
+        name: 'LED',
         directive: 'dk-Led'
     };
 })
@@ -18,33 +18,33 @@ angular.module('myApp.led', ['myApp.services'])
 })
 
 .controller('ledCtrl', function ($scope, socket) {
-    $scope.mypin="13";
-    $scope.toggletext = "On";
+    $scope.mypin = "13";
+    $scope.toggle = "On";
     $scope.brightness = "255";
     $scope.blink = "500";
     $scope.type = "Constant";
     
-    var getLedSettings = function() {
+    $scope.isPWM = function() {
+        return([3,5,6,9,10,11].indexOf(parseInt($scope.mypin)) > -1);
+    }
+
+    var getLedSettings = function () {
         var myled = {
             pin: parseInt($scope.mypin),
-            toggle: $scope.toggletext,
-            brightness: $scope.brightness,
+            toggle: $scope.toggle,
+            brightness: parseInt($scope.brightness),
             blink: parseInt($scope.blink),
-            type: parseInt($scope.type)
+            type: $scope.type
         }
-        return(myled);
+        return (myled);
     }
-    
-    $scope.onoffbutton = function() {
-        if ($scope.toggletext == "On") {
-            $scope.toggletext = "Off";
-            socket.emit("reqLed", getLedSettings());
-        }
-        else {
-            $scope.toggletext = "On";
-            socket.emit("reqLed", getLedSettings());
-        }
-    }
-    
-});
 
+    $scope.$watch('type', function (newVal, oldVal) {
+        socket.emit("reqLed", getLedSettings());
+    });
+    
+    $scope.$watch('toggle', function(newVal, oldVal) {
+        socket.emit("reqLed", getLedSettings());
+    });
+
+});

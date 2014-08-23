@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
-  <h3>Pin Widget Options <small>{{widget.title}}</small></h3>
+    <h3>Pin Widget Options <small>{{widget.title}}</small></h3>
 </div>
 
 <div class="modal-body">
@@ -14,11 +14,19 @@
         <div class="form-group">
             <label for="pinNumber" class="col-sm-2 control-label">Pin</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="pinNumber" ng-model="result.pin">
+                <select id="pin" name="pin" class="form-control" ng-model="result.pin">
+                    <option value="0">A0</option>
+                    <option value="1">A1</option>
+                    <option value="2">A2</option>
+                    <option value="3">A3</option>
+                    <option value="4">A4</option>
+                    <option value="5">A5</option>
+                </select>
             </div>
         </div>
-        <div ng-include="optionsTemplateUrl"></div>
-    </form>
+</div>
+<div ng-include="optionsTemplateUrl"></div>
+</form>
 </div>
 
 <div class="modal-footer">

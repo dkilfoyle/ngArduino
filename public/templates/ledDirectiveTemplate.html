@@ -25,8 +25,9 @@
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="onoffbutton">Toggle</label>
-            <div class="col-md-4">
-                <button id="onoffbutton" name="onoffbutton" class="btn" ng-class="{On: 'btn-success', Off: 'btn-danger'}[toggletext]" ng-click="onoffbutton()">{{toggletext}}</button>
+            <div class="btn-group col-md-4">
+                <label class="btn btn-success" ng-model="toggle" btn-radio="'On'">On</label>
+                <label class="btn btn-success" ng-model="toggle" btn-radio="'Off'">Off</label>
             </div>
         </div>
 
@@ -44,9 +45,9 @@
                         <input type="radio" name="type" id="type-1" value="Blink" ng-model="type">Blink
                     </label>
                 </div>
-                <div class="radio">
-                    <label for="type-2">
-                        <input type="radio" name="type" id="type-2" value="Pulse" ng-model="type">Pulse
+                <div class="radio" >
+                    <label for="type-2" >
+                        <input type="radio" name="type" id="type-2" value="Pulse" ng-model="type" ng-disabled="!isPWM()">Pulse
                     </label>
                 </div>
             </div>
@@ -54,7 +55,7 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="blink" >Blink</label>
+            <label class="col-md-4 control-label" for="blink">Blink</label>
             <div class="col-md-4">
                 <input id="blink" name="blink" type="text" placeholder="ms" class="form-control input-md" ng-model="blink">
 
@@ -63,7 +64,7 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="brightness" >Brightness</label>
+            <label class="col-md-4 control-label" for="brightness">Brightness</label>
             <div class="col-md-4">
                 <input id="brightness" name="brightness" type="text" placeholder="0-255" class="form-control input-md" ng-model="brightness">
 

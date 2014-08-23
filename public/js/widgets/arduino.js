@@ -4,7 +4,7 @@ angular.module('myApp.arduino', ['myApp.services'])
 
 .factory('arduinoWidgetDef', function () {
     return {
-        name: 'arduinoWidget',
+        name: 'Arduino',
         directive: 'dk-arduino'
     };
 })
@@ -21,11 +21,11 @@ angular.module('myApp.arduino', ['myApp.services'])
     $scope.myport="none";
     $scope.myports=[];
     $scope.board = {type: ""};
-    socket.emit("reqComPorts");
+
     $scope.connecttext = "Connect";
     $scope.connectclass = "btn btn-success";
     
-    console.log("ArduinoCtrl reqArduinoConnect");
+    socket.emit("reqComPorts");
     socket.emit("reqArduinoAlready");
     
     $scope.connect = function() {
@@ -34,7 +34,7 @@ angular.module('myApp.arduino', ['myApp.services'])
     
     socket.on('resComPorts', function(data) {
         $scope.myports = data.ports;
-        $scope.myport = data.ports[0];
+        //$scope.myport = data.ports[0];
     })
     
     socket.on('resArduinoReady', function(board) {

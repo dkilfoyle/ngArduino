@@ -4,7 +4,7 @@ angular.module('myApp.compass', ['myApp.services'])
 
 .factory('compassWidgetDef', function () {
     return {
-        name: 'compassWidget',
+        name: 'Compass',
         directive: 'dk-compass',
         dataAttrName: 'heading',
         attrs: { size: 100 }
