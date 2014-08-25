@@ -47,4 +47,5 @@ angular.module('myApp.led', ['myApp.services'])
         socket.emit("reqLed", getLedSettings());
     });
 
+    $scope.$on("widgetResized", function(event, size) { console.log(size); });
 });

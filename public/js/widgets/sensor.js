@@ -10,6 +10,7 @@ angular.module('myApp.sensor', ['myApp.services', 'smoothie-directive'])
     return {
         name: 'Sensor',
         directive: 'dk-sensor-watch',
+        size: { width: "400px", height: "250px"},
         dataAttrName: 'mypin', // bind mypin in the isolate scope to the widgetData/updateScope functions
         dataModelType: SensorDataModel,
         dataModelArgs: {
@@ -36,7 +37,7 @@ angular.module('myApp.sensor', ['myApp.services', 'smoothie-directive'])
 })
 
 .controller('SensorCtrl', function ($scope, socket) {
-
+    
     $scope.$watch('mypin.pin', function (newVal, oldVal) {
         socket.emit("sensorAdd", {
             pin: newVal,
@@ -53,6 +54,7 @@ angular.module('myApp.sensor', ['myApp.services', 'smoothie-directive'])
             $scope.mypin.value = data.value;
         }
     });
+    
 })
 
 .factory('SensorDataModel', function (WidgetDataModel, sensorWidgetCount) {

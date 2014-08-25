@@ -1,6 +1,7 @@
 <div>
     <div class="alert alert-info">Pin: {{mypin.pin}} Value: {{mypin.value}}</div>
-    <smoothie-grid width="200" maxValue="1000" minValue="0">
-        <time-series callback="getSensorGraphValue()" color="#4b8e4b" fill="rgba(108, 255, 0, 0.34)" width="0" rate="100"></time-series>
+    
+    <smoothie-grid maxValue="1000" minValue="0" lineColor="rgb(125,0,0)" background="rgb(60,0,0)" width="340" height="120">
+        <time-series callback="getSensorGraphValue()" color="rgba(0, 255, 0, 0.4)" fill="rgba(0, 255, 0, 0.4)" width="0" rate="100"></time-series>
     </smoothie-grid>
 </div>'
