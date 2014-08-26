@@ -2,24 +2,24 @@
 
 /* Directives */
 
-angular.module('myApp.gauge', [])
+angular.module('gauge-directive', [])
 
-.factory('gaugeWidgetDef', function () {
-    return {
-        name: 'gaugeWidget',
-        directive: 'wt-gauge',
-        attrs: {
-            gval: 50
-        },
-        style: {
-            width: '250px'
-        }
-    };
-})
+//.factory('gaugeWidgetDef', function () {
+//    return {
+//        name: 'gaugeWidget',
+//        directive: 'wt-gauge',
+//        attrs: {
+//            gval: 50
+//        },
+//        style: {
+//            width: '250px'
+//        }
+//    };
+//})
 
 .directive('wtGauge', function () {
     return {
-        restrict: 'A',
+        restrict: 'E',
         replace: true,
         scope: {
             label: '@',
@@ -48,8 +48,7 @@ angular.module('myApp.gauge', [])
                 to: config.max
             }];
 
-            console.log(element);
-            scope.gauge = new Gauge(element[0].children[2], config);
+            scope.gauge = new Gauge(element[0], config);
             scope.gauge.render();
 
             function update(value) {

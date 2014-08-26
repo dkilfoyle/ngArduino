@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('myApp.dashboard', ['myApp.services', 'myApp.sensor', 'myApp.compass', 'myApp.arduino', 'myApp.led', 'myApp.gauge'])
+angular.module('myApp.dashboard', ['myApp.services', 'myApp.sensor', 'myApp.compass', 'myApp.arduino', 'myApp.led'])
 
-.controller('DashboardCtrl', function ($scope, $window, sensorWidgetDef, compassWidgetDef, arduinoWidgetDef, ledWidgetDef, gaugeWidgetDef) {
+.controller('DashboardCtrl', function ($scope, $window, sensorWidgetDef, compassWidgetDef, arduinoWidgetDef, ledWidgetDef) {
 
     var widgetDefinitions = [
         arduinoWidgetDef,

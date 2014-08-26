@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.sensor', ['myApp.services', 'smoothie-directive'])
+angular.module('myApp.sensor', ['myApp.services', 'smoothie-directive', 'gauge-directive', 'justgage-directive'])
 
 .value('sensorWidgetCount', {
     count: 0

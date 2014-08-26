@@ -13,7 +13,6 @@
         "malhar-angular-dashboard": "latest",
         "d3": "~3.4.11",
         "bootstrap": "~3.2.0",
-        "angular-rickshaw": "~0.3.0",
-        "cubism": "latest"
+       "justgage-toorshia": "master"
     }
 }
